@@ -37,8 +37,6 @@ test('invalid operations', function (assert) {
         invalid,
         valid = moment();
 
-    test.expectedDeprecations('moment().min', 'moment().max', 'isDSTShifted');
-
     for (i = 0; i < invalids.length; ++i) {
         invalid = invalids[i];
 
@@ -75,16 +73,6 @@ test('invalid operations', function (assert) {
         assert.ok(!invalid.isValid());
         assert.equal(invalid.locale(), 'en');
         assert.equal(invalid.localeData()._abbr, 'en');
-        assert.ok(!invalid.clone().max(valid).isValid());
-        assert.ok(!valid.clone().max(invalid).isValid());
-        assert.ok(!invalid.clone().max(invalid).isValid());
-        assert.ok(!invalid.clone().min(valid).isValid());
-        assert.ok(!valid.clone().min(invalid).isValid());
-        assert.ok(!invalid.clone().min(invalid).isValid());
-        assert.ok(!moment.min(invalid, valid).isValid());
-        assert.ok(!moment.min(valid, invalid).isValid());
-        assert.ok(!moment.max(invalid, valid).isValid());
-        assert.ok(!moment.max(valid, invalid).isValid());
         assert.ok(!invalid.clone().set('year', 2005).isValid());
         assert.ok(!invalid.clone().startOf('month').isValid());
 
@@ -166,7 +154,6 @@ test('invalid operations', function (assert) {
         assert.ok(!invalid.clone().parseZone('05:30').isValid());
         assert.ok(!invalid.hasAlignedHourOffset());
         assert.ok(!invalid.isDST());
-        assert.ok(!invalid.isDSTShifted());
         assert.ok(!invalid.isLocal());
         assert.ok(!invalid.isUtcOffset());
         assert.ok(!invalid.isUtc());

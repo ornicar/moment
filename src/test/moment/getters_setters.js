@@ -37,27 +37,6 @@ test('getters programmatic', function (assert) {
     assert.equal(moment([2016,0,1]).get({year:2015}).year(), 2016, 'getter no longer sets values when passed an object');
 });
 
-test('setters plural', function (assert) {
-    var a = moment();
-    test.expectedDeprecations('years accessor', 'months accessor', 'dates accessor');
-
-    a.years(2011);
-    a.months(9);
-    a.dates(12);
-    a.hours(6);
-    a.minutes(7);
-    a.seconds(8);
-    a.milliseconds(9);
-    assert.equal(a.years(), 2011, 'years');
-    assert.equal(a.months(), 9, 'months');
-    assert.equal(a.dates(), 12, 'dates');
-    assert.equal(a.days(), 3, 'days');
-    assert.equal(a.hours(), 6, 'hours');
-    assert.equal(a.minutes(), 7, 'minutes');
-    assert.equal(a.seconds(), 8, 'seconds');
-    assert.equal(a.milliseconds(), 9, 'milliseconds');
-});
-
 test('setters singular', function (assert) {
     var a = moment();
     a.year(2011);

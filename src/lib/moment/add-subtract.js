@@ -1,21 +1,13 @@
 import { get, set } from './get-set';
 import { setMonth } from '../units/month';
 import { createDuration } from '../duration/create';
-import { deprecateSimple } from '../utils/deprecate';
 import { hooks } from '../utils/hooks';
 import absRound from '../utils/abs-round';
 
 
-// TODO: remove 'name' arg after deprecation is removed
-function createAdder(direction, name) {
+function createAdder(direction) {
     return function (val, period) {
         var dur, tmp;
-        //invert the arguments, but complain about it
-        if (period !== null && !isNaN(+period)) {
-            deprecateSimple(name, 'moment().' + name  + '(period, number) is deprecated. Please use moment().' + name + '(number, period). ' +
-            'See http://momentjs.com/guides/#/warnings/add-inverted-param/ for more info.');
-            tmp = val; val = period; period = tmp;
-        }
 
         val = typeof val === 'string' ? +val : val;
         dur = createDuration(val, period);

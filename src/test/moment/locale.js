@@ -139,15 +139,6 @@ test('library localeData', function (assert) {
     assert.equal(moment.localeData(moment().locale('es')).months(jan), 'enero', 'if you pass in a moment it uses the moment\'s locale');
 });
 
-test('library deprecations', function (assert) {
-    test.expectedDeprecations('moment.lang');
-    moment.lang('dude', {months: ['Movember']});
-    assert.equal(moment.locale(), 'dude', 'setting the lang sets the locale');
-    assert.equal(moment.lang(), moment.locale());
-    assert.equal(moment.langData(), moment.localeData(), 'langData is localeData');
-    moment.defineLocale('dude', null);
-});
-
 test('defineLocale', function (assert) {
     moment.locale('en');
     moment.defineLocale('dude', {months: ['Movember']});
@@ -243,11 +234,6 @@ test('changing the global locale doesn\'t affect existing duration instances', f
     var mom = moment.duration();
     moment.locale('fr');
     assert.equal('en', mom.locale());
-});
-
-test('duration deprecations', function (assert) {
-    test.expectedDeprecations('moment().lang()');
-    assert.equal(moment.duration().lang(), moment.duration().localeData(), 'duration.lang is the same as duration.localeData');
 });
 
 test('from and fromNow with invalid date', function (assert) {
@@ -365,24 +351,6 @@ test('month name callback function', function (assert) {
     assert.equal(moment([2011, 0, 2]).format('dd ddd dddd MMM MMMM'), 'default default default default default', 'format month name function should be able to access the moment object');
 });
 
-test('changing parts of a locale config', function (assert) {
-    test.expectedDeprecations('defineLocaleOverride');
-
-    moment.locale('partial-lang', {
-        months : 'a b c d e f g h i j k l'.split(' ')
-    });
-
-    assert.equal(moment([2011, 0, 1]).format('MMMM'), 'a', 'should be able to set locale values when creating the localeuage');
-
-    moment.locale('partial-lang', {
-        monthsShort : 'A B C D E F G H I J K L'.split(' ')
-    });
-
-    assert.equal(moment([2011, 0, 1]).format('MMMM MMM'), 'a A', 'should be able to set locale values after creating the localeuage');
-
-    moment.defineLocale('partial-lang', null);
-});
-
 test('start/endOf week feature for first-day-is-monday locales', function (assert) {
     moment.locale('monday-lang', {
         week : {
@@ -434,18 +402,9 @@ test('changing the global locale doesn\'t affect existing instances', function (
 });
 
 test('setting a language on instance returns the original moment for chaining', function (assert) {
-    test.expectedDeprecations('moment().lang()');
     var mom = moment();
 
-    assert.equal(mom.lang('fr'), mom, 'setting the language (lang) returns the original moment for chaining');
     assert.equal(mom.locale('it'), mom, 'setting the language (locale) returns the original moment for chaining');
-});
-
-test('lang(key) changes the language of the instance', function (assert) {
-    test.expectedDeprecations('moment().lang()');
-    var m = moment().month(0);
-    m.lang('fr');
-    assert.equal(m.locale(), 'fr', 'm.lang(key) changes instance locale');
 });
 
 test('moment#locale(false) resets to global locale', function (assert) {
@@ -462,12 +421,6 @@ test('moment#locale(false) resets to global locale', function (assert) {
 
 test('moment().locale with missing key doesn\'t change locale', function (assert) {
     assert.equal(moment().locale('boo').localeData(), moment.localeData(),
-            'preserve global locale in case of bad locale id');
-});
-
-test('moment().lang with missing key doesn\'t change locale', function (assert) {
-    test.expectedDeprecations('moment().lang()');
-    assert.equal(moment().lang('boo').localeData(), moment.localeData(),
             'preserve global locale in case of bad locale id');
 });
 

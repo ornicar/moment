@@ -11,8 +11,7 @@ import { format, toString, toISOString, inspect } from './format';
 import { from, fromNow } from './from';
 import { to, toNow } from './to';
 import { stringGet, stringSet } from './get-set';
-import { locale, localeData, lang } from './locale';
-import { prototypeMin, prototypeMax } from './min-max';
+import { locale, localeData } from './locale';
 import { startOf, endOf } from './start-end-of';
 import { valueOf, toDate, toArray, toObject, toJSON, unix } from './to-type';
 import { isValid, parsingFlags, invalidAt } from './valid';
@@ -37,11 +36,8 @@ proto.isSame            = isSame;
 proto.isSameOrAfter     = isSameOrAfter;
 proto.isSameOrBefore    = isSameOrBefore;
 proto.isValid           = isValid;
-proto.lang              = lang;
 proto.locale            = locale;
 proto.localeData        = localeData;
-proto.max               = prototypeMax;
-proto.min               = prototypeMin;
 proto.parsingFlags      = parsingFlags;
 proto.set               = stringSet;
 proto.startOf           = startOf;
@@ -138,13 +134,5 @@ proto.isUTC                = isUtc;
 import { getZoneAbbr, getZoneName } from '../units/timezone';
 proto.zoneAbbr = getZoneAbbr;
 proto.zoneName = getZoneName;
-
-// Deprecations
-import { deprecate } from '../utils/deprecate';
-proto.dates  = deprecate('dates accessor is deprecated. Use date instead.', getSetDayOfMonth);
-proto.months = deprecate('months accessor is deprecated. Use month instead', getSetMonth);
-proto.years  = deprecate('years accessor is deprecated. Use year instead', getSetYear);
-proto.zone   = deprecate('moment().zone is deprecated, use moment().utcOffset instead. http://momentjs.com/guides/#/warnings/zone/', getSetZone);
-proto.isDSTShifted = deprecate('isDSTShifted is deprecated. See http://momentjs.com/guides/#/warnings/dst-shifted/ for more information', isDaylightSavingTimeShifted);
 
 export default proto;
